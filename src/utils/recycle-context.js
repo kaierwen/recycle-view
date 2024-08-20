@@ -1,7 +1,7 @@
 /* eslint complexity: ["error", {"max": 50}] */
-const recycleData = require('./recycle-data.js')
+const recycleData = require('./recycle-data')
 const recycleViewportChangeFunc = require('./viewport-change-func')
-const transformRpx = require('./transformRpx.js')
+const transformRpx = require('./transformRpx')
 
 const RECT_SIZE = 200
 
@@ -16,7 +16,7 @@ function RecycleContext({
     throw new Error('parameter itemSize must be function or object with key width and height')
   }
   if (typeof itemSize === 'object' && (!itemSize.width || !itemSize.height) &&
-      (!itemSize.props || !itemSize.queryClass || !itemSize.dataKey)) {
+    (!itemSize.props || !itemSize.queryClass || !itemSize.dataKey)) {
     throw new Error('parameter itemSize must be function or object with key width and height')
   }
   this.id = id
@@ -151,7 +151,7 @@ RecycleContext.prototype._forceRerender = function (id, cb) {
     }
   }
   if (Object.prototype.toString.call(this.itemSizeOpt) === '[object Object]' &&
-        this.itemSizeOpt && !this.itemSizeOpt.width) {
+    this.itemSizeOpt && !this.itemSizeOpt.width) {
     this._recalculateSizeByProp(recycleData[id].list, function (sizeData) {
       recycleData[id].sizeMap = sizeData.map
       recycleData[id].sizeArray = sizeData.array

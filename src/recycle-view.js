@@ -4,7 +4,7 @@ const DEFAULT_SHOW_SCREENS = 4
 const RECT_SIZE = 200
 const systemInfo = wx.getSystemInfoSync()
 const DEBUG = false
-const transformRpx = require('./utils/transformRpx.js').transformRpx
+const transformRpx = require('./utils/transformRpx').transformRpx
 
 Component({
   options: {
@@ -251,37 +251,37 @@ Component({
       const SHOW_SCREENS = this.data.screen // 固定4屏幕
       this._log('SHOW_SCREENS', SHOW_SCREENS, scrollTop)
       this._calcViewportIndexes(scrollLeft, scrollTop,
-          (beginIndex, endIndex, minTop, afterHeight, maxTop) => {
-        that._log('scrollDistance', scrollDistance, 'indexes', beginIndex, endIndex)
-        // 渲染的数据不变
-        if (!force && pos.beginIndex === beginIndex && pos.endIndex === endIndex &&
+        (beginIndex, endIndex, minTop, afterHeight, maxTop) => {
+          that._log('scrollDistance', scrollDistance, 'indexes', beginIndex, endIndex)
+          // 渲染的数据不变
+          if (!force && pos.beginIndex === beginIndex && pos.endIndex === endIndex &&
             pos.minTop === minTop && pos.afterHeight === afterHeight) {
-          that._log('------------is the same beginIndex and endIndex')
-          return
-        }
-        // 如果这次渲染的范围比上一次的范围小，则忽略
-        that._log('【check】before setData, old pos is', pos.minTop, pos.maxTop, minTop, maxTop)
-        that._throttle = false
-        pos.left = scrollLeft
-        pos.top = scrollTop
-        pos.beginIndex = beginIndex
-        pos.endIndex = endIndex
-        // console.log('render indexes', endIndex - beginIndex + 1, endIndex, beginIndex)
-        pos.minTop = minTop
-        pos.maxTop = maxTop
-        pos.afterHeight = afterHeight
-        pos.ignoreBeginIndex = pos.ignoreEndIndex = -1
-        that.page._recycleViewportChange({
-          detail: {
-            data: that._pos,
-            id: that.id
+            that._log('------------is the same beginIndex and endIndex')
+            return
           }
-        }, () => {
-          if (e.detail.cb) {
-            e.detail.cb()
-          }
+          // 如果这次渲染的范围比上一次的范围小，则忽略
+          that._log('【check】before setData, old pos is', pos.minTop, pos.maxTop, minTop, maxTop)
+          that._throttle = false
+          pos.left = scrollLeft
+          pos.top = scrollTop
+          pos.beginIndex = beginIndex
+          pos.endIndex = endIndex
+          // console.log('render indexes', endIndex - beginIndex + 1, endIndex, beginIndex)
+          pos.minTop = minTop
+          pos.maxTop = maxTop
+          pos.afterHeight = afterHeight
+          pos.ignoreBeginIndex = pos.ignoreEndIndex = -1
+          that.page._recycleViewportChange({
+            detail: {
+              data: that._pos,
+              id: that.id
+            }
+          }, () => {
+            if (e.detail.cb) {
+              e.detail.cb()
+            }
+          })
         })
-      })
     },
     // 计算在视窗内渲染的数据
     _calcViewportIndexes(left, top, cb) {
@@ -497,7 +497,7 @@ Component({
       // const reRenderStart = Date.now()
       function newCb() {
         if (that._lastBeforeSlotHeight !== beforeSlotHeight ||
-            that._lastAfterSlotHeight !== afterSlotHeight) {
+          that._lastAfterSlotHeight !== afterSlotHeight) {
           that.setData({
             hasBeforeSlotHeight: true,
             hasAfterSlotHeight: true,
@@ -661,7 +661,7 @@ Component({
       }
       const rect = this.boundingClientRect(newVal)
       if (!rect) return newVal
-        // console.log('rect top', rect, this.data.beforeSlotHeight)
+      // console.log('rect top', rect, this.data.beforeSlotHeight)
       const calScrollTop = rect.top + (this.data.beforeSlotHeight || 0)
       this.currentScrollTop = calScrollTop
       if (Math.abs(calScrollTop - this._lastScrollTop) < this._pos.height) {
@@ -706,7 +706,7 @@ Component({
       const indexes = []
       for (let i = 0; i < this.sizeArray.length; i++) {
         if (this.sizeArray[i].beforeHeight + this.sizeArray[i].height >= minTop &&
-            this.sizeArray[i].beforeHeight <= maxTop) {
+          this.sizeArray[i].beforeHeight <= maxTop) {
           indexes.push(i)
         }
         if (this.sizeArray[i].beforeHeight > maxTop) break
